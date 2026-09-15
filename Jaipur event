@@ -1,0 +1,576 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make Your Own Forever Bouquet — Jaipur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600&amp;family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+  /* ====== EDITABLE WORKSHOP DETAILS ====== */
+  :root {
+    --workshop-name: "Make Your Own Forever Bouquet";
+  }
+
+  /* ---------- tokens ---------- */
+  :root {
+    --cream: #FFF8EF;
+    --cherry: #FF4D5E;
+    --cherry-deep: #E23A4E;
+    --pink: #FFA9CE;
+    --pink-deep: #FF7FB8;
+    --blue: #9FDBF5;
+    --yellow: #FFD54F;
+    --mint: #A9E8C0;
+    --ink: #3A2E2C;
+    --ink-soft: #6B5C58;
+    --paper: #FFFDF9;
+
+    --font-display: "Fredoka", sans-serif;
+    --font-body: "Nunito", sans-serif;
+    --font-hand: "Caveat", cursive;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    padding-bottom: 84px; /* space for sticky mobile bar */
+  }
+
+  img { max-width: 100%; display: block; }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    * { animation: none !important; }
+  }
+
+  /* ---------- decorative bits ---------- */
+  .doodle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .float {
+    animation: floaty 5s ease-in-out infinite;
+  }
+  .float.slow { animation-duration: 7s; }
+  .float.rev { animation-direction: alternate-reverse; }
+  @keyframes floaty {
+    0%   { transform: translateY(0) rotate(var(--r, 0deg)); }
+    50%  { transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 4deg)); }
+    100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  }
+
+  .sticker {
+    display: inline-block;
+    font-family: var(--font-hand);
+    font-size: 1.15rem;
+    background: var(--paper);
+    padding: 6px 16px 8px;
+    border: 2px solid var(--ink);
+    border-radius: 40% 60% 55% 45% / 60% 45% 55% 40%;
+    box-shadow: 3px 3px 0 var(--ink);
+    transform: rotate(-4deg);
+    color: var(--cherry-deep);
+  }
+
+  .tape {
+    position: absolute;
+    width: 70px;
+    height: 24px;
+    background: rgba(255, 213, 79, 0.75);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    padding: 44px 0 40px;
+    background: var(--pink);
+    border-bottom: 3px solid var(--ink);
+    overflow: hidden;
+  }
+
+  .hero-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 3;
+  }
+
+  .badge-jaipur {
+    background: var(--yellow);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-family: var(--font-hand);
+    font-size: 1.2rem;
+    transform: rotate(3deg);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .seats-badge {
+    background: var(--cherry);
+    color: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    transform: rotate(-3deg);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.7rem;
+    line-height: 1.03;
+    margin: 26px 0 10px;
+    position: relative;
+    z-index: 3;
+    color: var(--ink);
+  }
+  .hero-headline .bloom { color: var(--cherry-deep); }
+
+  .hero-sub-sticker {
+    margin: 14px 0 22px;
+    position: relative;
+    z-index: 3;
+  }
+
+  .hero-photo-frame {
+    position: relative;
+    z-index: 2;
+    margin: 8px 0 22px;
+    border: 3px solid var(--ink);
+    background: var(--paper);
+    padding: 8px 8px 34px;
+    transform: rotate(-1.5deg);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .hero-photo-frame .ph {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: repeating-linear-gradient(135deg, #FFEAD1, #FFEAD1 10px, #FFDFC0 10px, #FFDFC0 20px);
+    border: 1px dashed var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    padding: 12px;
+  }
+  .hero-photo-frame .cap {
+    font-family: var(--font-hand);
+    font-size: 1.05rem;
+    text-align: center;
+    margin-top: 8px;
+    color: var(--ink-soft);
+  }
+
+  .price-line {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 3;
+  }
+  .price-line .dot { color: var(--cherry-deep); }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--cherry);
+    color: var(--paper);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    padding: 18px 20px;
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--ink); }
+  .btn-primary:active { transform: translate(4px, 4px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn-primary:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+  /* ---------- section headings ---------- */
+  .section {
+    padding: 46px 0;
+    position: relative;
+    border-bottom: 3px solid var(--ink);
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.7rem;
+    line-height: 1.15;
+    margin: 0 0 26px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---------- mini experience cards ---------- */
+  .experience-bg { background: var(--blue); }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .exp-card {
+    background: var(--paper);
+    border: 2.5px solid var(--ink);
+    border-radius: 20px;
+    padding: 18px 14px;
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .exp-card .emoji { font-size: 1.6rem; }
+  .exp-card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    margin: 8px 0 4px;
+  }
+  .exp-card p {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.35;
+  }
+  .exp-card:nth-child(1) { transform: rotate(-1.2deg); }
+  .exp-card:nth-child(2) { transform: rotate(1deg); }
+  .exp-card:nth-child(3) { transform: rotate(1.4deg); }
+  .exp-card:nth-child(4) { transform: rotate(-1deg); }
+
+  /* ---------- event details ---------- */
+  .details-bg { background: var(--mint); }
+
+  .ticket {
+    position: relative;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 22px;
+    padding: 26px 22px 24px;
+    z-index: 2;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .ticket::before, .ticket::after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: var(--mint);
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .ticket::before { left: -16px; }
+  .ticket::after { right: -16px; }
+
+  .ticket-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    padding: 8px 0;
+    border-bottom: 2px dashed #E9DFCF;
+  }
+  .ticket-row:last-of-type { border-bottom: none; }
+  .ticket-row .em { font-size: 1.1rem; }
+
+  .ticket-sticker-row {
+    display: flex;
+    justify-content: center;
+    margin: 18px 0 6px;
+  }
+
+  .ticket-price {
+    text-align: center;
+    margin-top: 18px;
+  }
+  .ticket-price .amt {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--cherry-deep);
+    display: block;
+  }
+  .ticket-price .seats {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  /* ---------- final CTA ---------- */
+  .final-bg {
+    background: var(--yellow);
+    text-align: center;
+    padding-bottom: 56px;
+  }
+  .final-heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.9rem;
+    line-height: 1.15;
+    margin: 6px 0 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .final-sub {
+    font-family: var(--font-hand);
+    font-size: 1.35rem;
+    color: var(--ink-soft);
+    margin: 0 0 26px;
+    position: relative;
+    z-index: 2;
+  }
+
+  footer {
+    text-align: center;
+    padding: 26px 20px 20px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    background: var(--cream);
+  }
+  footer a { text-decoration: underline; }
+
+  /* ---------- fixed mobile bar ---------- */
+  .mobile-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 50;
+    background: var(--cherry);
+    border-top: 3px solid var(--ink);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  }
+  .mobile-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--paper);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+  }
+
+  @media (min-width: 540px) {
+    .wrap { max-width: 500px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <!-- decorative doodles -->
+  <svg class="doodle float" style="--r:-8deg; top:8px; right:-14px; width:70px; opacity:.9;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#3A2E2C" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M20 60 C 20 40, 40 20, 60 20 C 80 20, 90 35, 80 50 C 70 65, 45 60, 40 45"></path>
+      <path d="M78 44 L 88 40 M 82 52 L 92 54"></path>
+    </g>
+  </svg>
+  <svg class="doodle float slow" style="--r:6deg; top:110px; left:-10px; width:34px;" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#FFD54F" stroke="#3A2E2C" stroke-width="2"></path>
+  </svg>
+
+  <div class="wrap">
+    <div class="hero-top-row">
+      <span class="badge-jaipur">JAIPUR ♡</span>
+      <span class="seats-badge">ONLY 15 SEATS</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Make your own<br>
+      <span class="bloom">forever bouquet</span> 🌷
+    </h1>
+
+    <div class="hero-sub-sticker">
+      <span class="sticker">cute plans &gt; boring plans</span>
+    </div>
+
+    <div class="hero-photo-frame">
+      <div class="ph">REPLACE WITH REAL IMAGE<br>— colourful pipe-cleaner bouquet on a café table —</div>
+      <p class="cap">bright, bendy, entirely yours ♡</p>
+    </div>
+
+    <p class="price-line"><span class="dot">₹299</span> &nbsp;·&nbsp; 15 seats</p>
+
+    <a href="PAYMENT_LINK_HERE" class="btn-primary" id="hero-cta">🌷 Book my seat — ₹299</a>
+  </div>
+</section>
+
+<!-- ============ MINI EXPERIENCE ============ -->
+<section class="section experience-bg">
+  <svg class="doodle float" style="--r:10deg; top:14px; right:10px; width:30px;" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 6 C10 6 6 16 12 22 C6 28 10 36 20 32 C30 36 34 28 28 22 C34 16 30 6 20 6 Z" fill="#FFA9CE" stroke="#3A2E2C" stroke-width="2"></path>
+  </svg>
+  <div class="wrap reveal">
+    <h2 class="section-heading">A little afternoon<br>of cute things 💌</h2>
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="emoji">🌷</div>
+        <h3>Make</h3>
+        <p>Twist and shape your own flowers, one by one.</p>
+      </div>
+      <div class="exp-card">
+        <div class="emoji">☕</div>
+        <h3>Sip</h3>
+        <p>Settle in with something warm from the café.</p>
+      </div>
+      <div class="exp-card">
+        <div class="emoji">🎀</div>
+        <h3>Create</h3>
+        <p>Arrange everything into your own bouquet.</p>
+      </div>
+      <div class="exp-card">
+        <div class="emoji">💐</div>
+        <h3>Take home</h3>
+        <p>Keep it on your desk forever — it won't wilt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENT DETAILS ============ -->
+<section class="section details-bg">
+  <svg class="doodle float rev" style="--r:-6deg; top:6px; left:8px; width:26px;" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#9FDBF5" stroke="#3A2E2C" stroke-width="2"></path>
+  </svg>
+  <div class="wrap reveal">
+    <h2 class="section-heading">Save the details ✂️</h2>
+
+    <div class="ticket">
+      <div class="ticket-row"><span class="em">📍</span> <span id="venue-name">[Café name], Jaipur</span></div>
+      <div class="ticket-row"><span class="em">🗓</span> <span id="event-date">[Date]</span></div>
+      <div class="ticket-row"><span class="em">⏰</span> <span id="event-time">[Time]</span></div>
+      <div class="ticket-row"><span class="em">⏱</span> ~2 hours</div>
+
+      <div class="ticket-sticker-row">
+        <span class="sticker">no experience needed ♡</span>
+      </div>
+
+      <div class="ticket-price">
+        <span class="amt">₹299</span>
+        <span class="seats">15 seats only</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="section final-bg">
+  <svg class="doodle float" style="--r:8deg; top:10px; left:-6px; width:60px; opacity:.85;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#3A2E2C" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M50 20 C 35 5, 10 15, 15 35 C 20 55, 40 60, 50 80 C 60 60, 80 55, 85 35 C 90 15, 65 5, 50 20 Z" fill="#FF4D5E" fill-opacity="0.15"></path>
+    </g>
+  </svg>
+  <div class="wrap reveal">
+    <h2 class="final-heading">Come make something<br>cute with us 🌷</h2>
+    <p class="final-sub">bring your bestie.<br>or come make a new one ♡</p>
+    <a href="PAYMENT_LINK_HERE" class="btn-primary" id="final-cta">Book my seat — ₹299</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Questions before you book? DM us on
+    <a href="https://instagram.com/" id="ig-link">Instagram</a> ·
+    <a href="https://maps.google.com/" id="map-link">Find us on the map</a>
+  </div>
+</footer>
+
+<!-- ============ FIXED MOBILE BOOKING BAR ============ -->
+<div class="mobile-bar">
+  <a href="PAYMENT_LINK_HERE" id="mobile-cta">🌷 ₹299 · Book your seat</a>
+</div>
+
+<script>
+  // ====== EDITABLE VARIABLES ======
+  const WORKSHOP_NAME   = "Make Your Own Forever Bouquet";
+  const PRICE           = "₹299";
+  const DATE            = "[Date]";
+  const TIME            = "[Time]";
+  const VENUE_NAME      = "[Café name]";
+  const VENUE_ADDRESS   = "[Full address, Jaipur]";
+  const PAYMENT_LINK    = "PAYMENT_LINK_HERE";
+  const INSTAGRAM_URL   = "https://instagram.com/";
+  const MAP_URL         = "https://maps.google.com/";
+
+  document.getElementById("event-date").textContent = DATE;
+  document.getElementById("event-time").textContent = TIME;
+  document.getElementById("venue-name").textContent = VENUE_NAME + ", Jaipur";
+
+  ["hero-cta", "final-cta", "mobile-cta"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute("href", PAYMENT_LINK);
+  });
+  document.getElementById("ig-link").setAttribute("href", INSTAGRAM_URL);
+  document.getElementById("map-link").setAttribute("href", MAP_URL);
+
+  // ====== scroll reveal ======
+  const revealEls = document.querySelectorAll(".reveal");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReducedMotion && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add("in-view"));
+  }
+</script>
+
+
+
+</body></html>
