@@ -575,10 +575,6 @@
   const INSTAGRAM_URL   = "https://www.instagram.com/funfam_club?stkn=MWUyejVndXNxZ3o3eA==";
   const MAP_URL         = "https://maps.google.com/";
 
-  document.getElementById("event-date").textContent = DATE;
-  document.getElementById("event-time").textContent = TIME;
-  document.getElementById("venue-name").textContent = VENUE_NAME + ", Jaipur";
-
   ["hero-cta", "final-cta", "mobile-cta"].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.setAttribute("href", PAYMENT_LINK);
