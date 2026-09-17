@@ -54,11 +54,9 @@
 
   /* ---------- reveal on scroll ---------- */
   .reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity .6s ease, transform .6s ease;
-  }
-  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  opacity: 1;
+  transform: none;
+}
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
