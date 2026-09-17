@@ -523,7 +523,7 @@
 <footer>
   <div class="wrap">
     Questions before you book? DM us on
-    <a href="https://instagram.com/" id="https://www.instagram.com/funfam_club?stkn=MWUyejVndXNxZ3o3eA==">Instagram</a> 
+    <a href="https://instagram.com/funfam_club" id="ig-link">Instagram</a>
   </div>
 </footer>
 
@@ -536,12 +536,12 @@
   // ====== EDITABLE VARIABLES ======
   const WORKSHOP_NAME   = "Make Your Own Forever Bouquet";
   const PRICE           = "₹299";
-  const DATE            = "[Date]";
-  const TIME            = "[Time]";
-  const VENUE_NAME      = "[Café name]";
-  const VENUE_ADDRESS   = "[Full address, Jaipur]";
+  const DATE = "Sunday, 27th September";
+  const TIME = "12PM–2PM";
+  const VENUE_NAME = "Bubblier, Vaishali Nagar";
+  const VENUE_ADDRESS = "Vaishali Nagar, Jaipur";
   const PAYMENT_LINK    = "https://rzp.io/rzp/UpsFTGq";
-  const INSTAGRAM_URL   = "https://instagram.com/";
+  const INSTAGRAM_URL   = "https://www.instagram.com/funfam_club?stkn=MWUyejVndXNxZ3o3eA==";
   const MAP_URL         = "https://maps.google.com/";
 
   document.getElementById("event-date").textContent = DATE;
@@ -552,8 +552,10 @@
     const el = document.getElementById(id);
     if (el) el.setAttribute("href", PAYMENT_LINK);
   });
-  document.getElementById("ig-link").setAttribute("href", INSTAGRAM_URL);
-  document.getElementById("map-link").setAttribute("href", MAP_URL);
+  const igLink = document.getElementById("ig-link");
+  if (igLink) igLink.setAttribute("href", INSTAGRAM_URL);
+  const mapLink = document.getElementById("map-link");
+  if (mapLink) mapLink.setAttribute("href", MAP_URL);
 
   // ====== scroll reveal ======
   const revealEls = document.querySelectorAll(".reveal");
