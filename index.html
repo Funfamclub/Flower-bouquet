@@ -401,6 +401,26 @@
   @media (min-width: 540px) {
     .wrap { max-width: 500px; }
   }
+
+  .venue-gallery {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.venue-gallery img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+}
+
+.venue-gallery img:first-child {
+  grid-row: span 2;
+  height: 370px;
+}
 </style>
 </head>
 <body>
@@ -442,7 +462,15 @@
       <p class="cap">bright, bendy, entirely yours ♡</p>
     </div>
 
-    <p class="price-line"><span class="dot">₹299</span> &nbsp;·&nbsp; 15 seats</p>
+    <div class="event-meta">
+  <div>🗓 Sunday, 27th September</div>
+  <div>⏰ 12PM–2PM</div>
+  <div>📍 Bubblier, Vaishali Nagar, Jaipur</div>
+</div>
+
+<p class="price-line">
+  <span class="dot">₹299</span> &nbsp;·&nbsp; 15 seats only
+</p>
 
     <a href="https://rzp.io/rzp/UpsFTGq" class="btn-primary" id="hero-cta">🌷 Book my seat — ₹299</a>
   </div>
@@ -486,22 +514,25 @@
     <path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#9FDBF5" stroke="#3A2E2C" stroke-width="2"></path>
   </svg>
   <div class="wrap reveal">
-    <h2 class="section-heading">Save the details ✂️</h2>
+    <p class="eyebrow">OUR VENUE PARTNER ♡</p>
 
-    <div class="ticket">
-      <div class="ticket-row"><span class="em">📍</span> <span id="venue-name">Bubblier,Vaishali nagar, Jaipur</span></div>
-      <div class="ticket-row"><span class="em">🗓</span> <span id="event-date">Sunday, 27th September</span></div>
-      <div class="ticket-row"><span class="em">⏰</span> <span id="event-time">12PM-2PM</span></div>
-      <div class="ticket-row"><span class="em">⏱</span> ~2 hours</div>
+    <h2 class="section-heading">
+      Our venue partner<br>
+      for the event is even cuter ✨
+    </h2>
 
-      <div class="ticket-sticker-row">
-        <span class="sticker">no experience needed ♡</span>
-      </div>
+    <p class="section-sub">
+      The sweetest little spot for making your very own forever bouquet 🌷
+    </p>
 
-      <div class="ticket-price">
-        <span class="amt">₹299</span>
-        <span class="seats">15 seats only</span>
-      </div>
+    <div class="venue-gallery">
+      <img src="YOUR_VENUE_PHOTO_1" alt="Bubblier venue">
+      <img src="YOUR_VENUE_PHOTO_2" alt="Bubblier venue">
+      <img src="YOUR_VENUE_PHOTO_3" alt="Bubblier venue">
+    </div>
+
+    <div class="venue-name">
+      Bubblier · Vaishali Nagar, Jaipur
     </div>
   </div>
 </section>
